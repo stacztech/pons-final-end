@@ -1,0 +1,32 @@
+services:
+  # Backend Service
+  - type: web
+    name: pons-meat-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        sync: false # You'll need to set this in Render dashboard
+      - key: JWT_SECRET
+        sync: false # You'll need to set this in Render dashboard
+      - key: EMAIL_USER
+        sync: false # You'll need to set this in Render dashboard
+      - key: EMAIL_PASS
+        sync: false # You'll need to set this in Render dashboard
+
+  # Frontend Service
+  - type: web
+    name: pons-meat-frontend
+    env: static
+    rootDir: meat-website
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist/meat-website
+    envVars:
+      - key: NODE_ENV
+        value: production 
