@@ -17,26 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 9000;
 const __dirname = path.resolve();
 
-// CORS configuration for both development and production
-const allowedOrigins = [
-  "http://localhost:4200",
-  "https://YOUR_FRONTEND_URL.onrender.com", // Replace YOUR_FRONTEND_URL with your actual frontend service name
-  "https://pons-meat-website.onrender.com"   // Alternative frontend URL
-];
-
-app.use(cors({ 
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true 
-}));
+app.use(cors({ origin: "http://localhost:4200", credentials: true }));
 
 app.use(express.json()); // allows us to parse incoming requests:req.body
 app.use(cookieParser()); // allows us to parse incoming cookies
@@ -47,10 +28,10 @@ app.use("/api/addresses", addressRoutes);
 app.use("/api/cart", cartRoutes);
 
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "../meat-website/dist/meat-website")));
+	app.use(express.static(path.join(__dirname, "/frontend/dist")));
 	
 	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "../meat-website/dist/meat-website/index.html"));
+		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 	});
 }
 
