@@ -20,7 +20,7 @@ const __dirname = path.resolve();
 // CORS configuration for both development and production
 const allowedOrigins = [
   "http://localhost:4200",
-  "https://pons-meat-frontend.onrender.com", // Update this with your actual frontend URL
+  "https://YOUR_FRONTEND_URL.onrender.com", // Replace YOUR_FRONTEND_URL with your actual frontend service name
   "https://pons-meat-website.onrender.com"   // Alternative frontend URL
 ];
 
